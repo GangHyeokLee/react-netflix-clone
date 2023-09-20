@@ -1,9 +1,12 @@
 import axios from "../api/axios";
 import React, { useEffect, useState } from 'react'
 import "./row.css"
+import MovieModal from "./MovieModal";
 
 export default function Row({ title, id, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([])
+    const [modalOpen, setModalOpen] = useState(false)
+    const [movieSelcted, setMovieSelcted] = useState({})
 
     useEffect(() => {
         fetchMovieData();
@@ -16,16 +19,21 @@ export default function Row({ title, id, fetchUrl, isLargeRow }) {
         setMovies(request.data.results)
     }
 
+    const handleClick = (movie) => {
+        setModalOpen(true);
+        setMovieSelcted(movie);
+    }
+
     return (
         <section className="row">
             <h2>{title}</h2>
             <div className="slider">
-                <div className="slider__arrow-left">
+                <div className="slider__arrow-left" onClick={() => {
+                    document.getElementById(id).scrollLeft -= window.innerWidth - 80;
+                }}>
                     <span
                         className="arrow"
-                        onClick={() => {
-                            document.getElementById(id).scrollLeft -= window.innerWidth - 80;
-                        }}
+
                     >
                         {"<"}
                     </span>
@@ -38,17 +46,26 @@ export default function Row({ title, id, fetchUrl, isLargeRow }) {
                             className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                             src={`https://image.tmdb.org/t/p/original/${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                             alt={movie.name}
+                            onClick={() => handleClick(movie)}
                         />
                     ))}
                 </div>
-                <div className="slider__arrow-right">
+                <div className="slider__arrow-right" onClick={() => {
+                    document.getElementById(id).scrollLeft += window.innerWidth - 80;
+                }}>
                     <span
                         className="arrow"
-                        onClick={() => {
-                            document.getElementById(id).scrollLeft += window.innerWidth -80;
-                        }}>{">"}</span>
+                    >{">"}</span>
                 </div>
             </div>
+
+            {
+                modalOpen && (
+                    <MovieModal
+                        {...movieSelcted} setModalOpen = {setModalOpen}
+                    />
+                )
+            }
         </section>
     )
 }
