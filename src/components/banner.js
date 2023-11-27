@@ -57,13 +57,13 @@ export default function Banner() {
             </header>
         )
     }
-    else{
+    else {
         return (
             <Container>
                 <HomeContainer>
                     <Iframe
-                        width= "640"
-                        height= '360'
+                        width="640"
+                        height='360'
                         src={`https://www.youtube.com/embed/${movie.videos.results[0].key}
                         ?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
                         frameBorder="0"
@@ -83,20 +83,20 @@ z-index: -1;
 opacity: 0.65;
 border: none;
 
-&:: after{
+&::after{
     content: "";
-    pposition: absolute;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}`
+}`;
 
 const Container = styled.div`
-    disply: flex;
+    display: flex;
     justify-content:center;
     align-items: center;
-    felx-direction-column;
+    flex-direction: column;
     width: 100%;
     height: 100vh;
 `
