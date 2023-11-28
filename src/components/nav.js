@@ -35,7 +35,7 @@ export default function Nav() {
                 alt='Netflix Logo'
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2880px-Netflix_2015_logo.svg.png"
                 className="nav__logo"
-                onClick={() => window.location.reload()}
+                onClick={() => navigate('/')}
             />
 
             <input value={searchValue} onChange={handleChange} className="nav__input" type="text" placeholder="영화를 검색해주세요." />
